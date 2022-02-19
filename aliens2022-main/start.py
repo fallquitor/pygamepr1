@@ -107,8 +107,6 @@ class AlienInvasion:
             self.sb.prep_level()
             self.sb.prep_ships()
             
-
-            
     def _check_keyup_events(self, event):
         if event.key == pygame.K_RIGHT:
             self.ship.moving_right = False
