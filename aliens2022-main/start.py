@@ -39,6 +39,10 @@ class AlienInvasion:
         # Создание кнопки Play
         self.play_button = Button(self, "Play")
 
+        # pygame.mixer.music.load('sounds/blaster.mp3')
+        
+        
+
     def run_game(self):
         """Запуск основного цикла игры."""
         while True:
@@ -113,8 +117,10 @@ class AlienInvasion:
 
     def _fire_bullet(self):
         """Создание нового снаряда и включение его в группу bullets."""
+        blastersound = pygame.mixer.Sound('sounds/blaster.mp3')
         if len(self.bullets) < self.settings.bullets_allowed:
             new_bullet = Bullet(self)
+            blastersound.play()
             self.bullets.add(new_bullet)
     
     def _update_bullets(self):
@@ -129,6 +135,7 @@ class AlienInvasion:
         self._check_bullet_alien_collision()
 
     def _check_bullet_alien_collision(self):
+        shot = pygame.mixer.Sound("sounds/shot.mp3")
         # Проверка попаданий в пришельцев
         collisions = pygame.sprite.groupcollide(
             self.bullets, self.aliens, True, True
@@ -137,6 +144,7 @@ class AlienInvasion:
         if collisions:
             for aliens in collisions.values():
                 self.stats.score += self.settings.alien_points * len(aliens)
+            shot.play()
             self.sb.prep_score()
             self.sb.check_high_score()
 
